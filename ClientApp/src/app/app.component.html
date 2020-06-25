@@ -1,0 +1,75 @@
+<div class="container">
+
+  <form [formGroup]="EntriesForm" (ngSubmit)="this[EventValue]()">
+
+    <h3>Address Book</h3>
+    <div class="row">
+      <table class="table">
+        <tr hidden="hidden">
+          <td></td>
+          <td>
+            <input type="hidden" formControlName="entryId">
+          </td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>
+            <input type="text" formControlName="name" />
+            <div *ngIf="submitted && EntriesForm.controls.name.errors" class="text-danger">
+              <div *ngIf="EntriesForm.controls.name.errors.required">Name is required</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Phone Number</td>
+          <td>
+            <input type="text" formControlName="phoneNumber" />
+            <div *ngIf="submitted && EntriesForm.controls.phoneNumber.errors" class="text-danger">
+              <div *ngIf="EntriesForm.controls.phoneNumber.errors.required">Phone Number is required</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="submit" class="btn btn-primary">{{EventValue}}</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <h3>Entries</h3>
+    <div class="row">
+      <table class="table">
+        <tr>
+          <td>
+            Name:<input type="text" formControlName="searchName" />
+          </td>
+          <td>
+            <a (click)="search()" class="btn">Search</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="row">
+      <table class="table table-striped">
+        <tr>
+          <td>Entry Id</td>
+          <td>Name</td>
+          <td>Phone Number</td>
+          <td>Edit</td>
+          <td>Delete</td>
+        </tr>
+
+        <tr *ngFor="let d of data">
+          <td>{{d.entryId}}</td>
+          <td>{{d.name}}</td>
+          <td>{{d.phoneNumber}}</td>
+          <td><a (click)="editData(d)" class="btn btn-warning">Edit</a></td>
+          <td><a (click)="deleteData(d.entryId)" class="btn btn-danger">Delete</a></td>
+        </tr>
+      </table>
+    </div>
+  </form>
+
+</div>
